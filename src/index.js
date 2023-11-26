@@ -1,11 +1,16 @@
 import app from './app'
 
-const userCRUD = require('./routes/userCRUDRoute');
-const teacherCRUD = require('./routes/teacherCRUDRoute');
+const incomeCRUD = require('./routes/incomeCRUDRoute');
+const outcomeTypeCRUD = require('./routes/outcomeTypeCRUDRoute');
+const paymentMethodCRUD = require('./routes/paymentMethodCRUDRoute');
 
-userCRUD.userCRUD();
 
-teacherCRUD.teacherCRUD();
+
+
+incomeCRUD.incomeCRUD();
+outcomeTypeCRUD.outcomeTypeCRUD();
+paymentMethodCRUD.paymentMethodCRUD();
+
 /*
 fast testing the server in the loading
 */

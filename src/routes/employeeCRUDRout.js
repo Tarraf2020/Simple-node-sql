@@ -1,14 +1,14 @@
 import app from '../app'
 const connection = require('../connection/DBConnection');
-let userCRUD = () => {
+let employeeCRUD = () => {
 
     /*
-function and route for get all the users
+function and route for get all the employee
 */
-    let getUsers = () => {
-        app.get('/user', async (req, res) => {
+    let getEmployees = () => {
+        app.get('/employee', async (req, res) => {
 
-            connection.con.query('select * from user', (err, result) => {
+            connection.con.query('select * from employee', (err, result) => {
                 try {
                     if (result.length > 0) {
                         res.status(200).json({ success: true, result: result });
@@ -25,12 +25,12 @@ function and route for get all the users
     }
 
     /*
-    function and route for get the user by id
+    function and route for get the employee by id
     */
-    let getUser = () => {
-        app.get('/user/:id', async (req, res) => {
+    let getEmployee = () => {
+        app.get('/employee/:id', async (req, res) => {
             let id = req.params.id
-            connection.con.query('select * from user where id=' + id, (err, result) => {
+            connection.con.query('select * from employee where id=' + id, (err, result) => {
                 try {
                     if (result.length > 0) {
                         res.json({ success: true, result: result });
@@ -47,21 +47,28 @@ function and route for get all the users
     }
 
     /*
-    function and route for create user
+    function and route for create employee
     */
-    let createUser = () => {
-        app.post('/user', async (req, res) => {
-            //   let userDetails={'name':'omar','email':'omar@gail.com','password':'1212'};
+    let createEmployee = () => {
+        app.post('/employee', async (req, res) => {
 
-            var createStudent = {
+            var createemployee = {
                 'name': req.body.name,
                 'email': req.body.email,
-                'password': req.body.password
+                'timeIn' : req.body.timeIn,
+                'timeOut' : req.body.timeOut,
+                'totalHours' : req.body.totalHours,
+                'salary' : req.body.salary,
+                'password' : req.body.password,
+                'salary' : req.body.salary,
+                'subAdmin' : req.body.subAdmin,
+                'token' : req.body.token,
+                
             }
 
-            var sql = "INSERT INTO user SET ?";
+            var sql = "INSERT INTO employee SET ?";
             try {
-                connection.con.query(sql, createStudent, (err, result) => {
+                connection.con.query(sql, createemployee, (err, result) => {
                     res.json(result);
                 });
             } catch (e) {
@@ -74,14 +81,14 @@ function and route for get all the users
     }
 
     /*
-    function and route for update user
+    function and route for update employee
     */
 
-    let updateUser = () => {
-        app.put('/user/:id', async (req, res) => {
+    let updateEmployee = () => {
+        app.put('/employee/:id', async (req, res) => {
 
             let id = req.params.id;
-            var sql = "update user SET ? where id=?";
+            var sql = "update employee SET ? where id=?";
             var arr = req.body;
             try {
                 connection.con.query(sql, [arr, id], (err, result) => {
@@ -94,13 +101,13 @@ function and route for get all the users
 
     }
     /*
-  function and route for deleting the user by id
+  function and route for deleting the employee by id
   */
 
-    let deleteUser = () => {
-        app.delete('/user/:id', async (req, res) => {
+    let deleteEmployee = () => {
+        app.delete('/employee/:id', async (req, res) => {
             let id = req.params.id;
-            connection.con.query('delete from user where id=' + id, (err, result) => {
+            connection.con.query('delete from employee where id=' + id, (err, result) => {
                 try {
                     res.json({ success: true, result: result });
                 } catch (e) {
@@ -113,12 +120,13 @@ function and route for get all the users
     /*
     we must call every function we created in above
     */
-    getUsers();
-    createUser();
-    updateUser();
-    getUser();
-    deleteUser();
+   
+    getEmployees();
+    getEmployee();
+    createEmployee();
+    updateEmployee();
+    deleteEmployee();
 }
 
-module.exports = { userCRUD };
+module.exports = { employeeCRUD };
 
